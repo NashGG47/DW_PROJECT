@@ -1,5 +1,6 @@
 -- d)	Give me the MRRh and MRRc per airport of the reporting person per aircraft (also per model). 
 
+--EXPLAIN PLAN FOR
 
 SELECT 
     a.AircraftID,                      -- Select the aircraft ID
@@ -24,3 +25,5 @@ GROUP BY
 ORDER BY 
     a.AircraftID,                      -- Order by aircraft ID
     r.Airport                         -- Order by airport
+
+--SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);

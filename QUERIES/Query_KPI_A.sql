@@ -1,5 +1,6 @@
 -- a)	Give me FH and TO per aircraft (also per model) per day (also per month and per year). 
 
+--EXPLAIN PLAN FOR
 
 SELECT 
     a.AircraftID,                      -- Select the aircraft ID
@@ -27,3 +28,5 @@ ORDER BY
     t.Year,                            -- Order by year
     t.Month,                           -- Order by month
     t.Day                              -- Order by day
+
+--SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);

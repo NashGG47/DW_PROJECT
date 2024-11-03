@@ -1,6 +1,7 @@
 -- b)	Give me ADIS, ADOS, ADOSS, ADOSU, DYR, CNR, TDR, ADD per aircraft (also per model) 
 --      per month (also per year).
 
+--EXPLAIN PLAN FOR
 
 SELECT 
     a.AircraftID,                      -- Select the aircraft ID
@@ -34,3 +35,5 @@ ORDER BY
     a.AircraftID,                      -- Order by aircraft ID
     t.Year,                            -- Order by year
     t.Month                            -- Order by month
+
+--SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);

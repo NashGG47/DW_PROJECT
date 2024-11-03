@@ -1,6 +1,7 @@
 -- c)	Give me the RRh, RRc, PRRh, PRRc, MRRh and MRRc per aircraft (also per model and manufacturer) 
 --      per month (also per year).
 
+--EXPLAIN PLAN FOR
 
 SELECT 
     a.AircraftID,                      -- Select the aircraft ID
@@ -8,8 +9,8 @@ SELECT
     a.Manufacturer,                    -- Select the aircraft manufacturer
     t.Year,                            -- Select the year
     t.Month,                           -- Select the month
-    (1000 * SUM(SUM(m.PLBC)+SUM(m.MLBC)) / SUM(f.FH)) AS report_rate_hour,  -- Calculate Report Rate per Hour (RRh)
-    (100 * SUM(SUM(m.PLBC)+SUM(m.MLBC)) / SUM(f.TOFF)) AS report_rate_cycle,  -- Calculate Report Rate per Cycle (RRc)
+    (1000 * (SUM(m.PLBC)+SUM(m.MLBC)) / SUM(f.FH)) AS report_rate_hour,  -- Calculate Report Rate per Hour (RRh)
+    (100 * (SUM(m.PLBC)+SUM(m.MLBC)) / SUM(f.TOFF)) AS report_rate_cycle,  -- Calculate Report Rate per Cycle (RRc)
     (1000 * SUM(m.PLBC) / SUM(f.FH)) AS pilot_report_rate_hour,  -- Calculate Pilot Report Rate per Hour (PRRh)
     (100 * SUM(m.PLBC) / SUM(f.TOFF)) AS pilot_report_rate_cycle,  -- Calculate Pilot Report Rate per Cycle (PRRc)
     (1000 * SUM(m.MLBC) / SUM(f.FH)) AS maintenance_report_rate_hour,  -- Calculate Maintenance Report Rate per Hour (MRRh)
@@ -34,3 +35,5 @@ ORDER BY
     a.AircraftID,                      -- Order by aircraft ID
     t.Year,                            -- Order by year
     t.Month                            -- Order by month
+
+--SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
