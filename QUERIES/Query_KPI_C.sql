@@ -10,11 +10,11 @@ SELECT
     t.Year,                            -- Select the year
     t.Month,                           -- Select the month
     (1000 * (SUM(m.PLBC)+SUM(m.MLBC)) / SUM(f.FH)) AS report_rate_hour,  -- Calculate Report Rate per Hour (RRh)
-    (100 * (SUM(m.PLBC)+SUM(m.MLBC)) / SUM(f.TOFF)) AS report_rate_cycle,  -- Calculate Report Rate per Cycle (RRc)
+    (100 * (SUM(m.PLBC)+SUM(m.MLBC)) / COUNT(CASE WHEN NOT f.CN THEN f)) AS report_rate_cycle,  -- Calculate Report Rate per Cycle (RRc)
     (1000 * SUM(m.PLBC) / SUM(f.FH)) AS pilot_report_rate_hour,  -- Calculate Pilot Report Rate per Hour (PRRh)
-    (100 * SUM(m.PLBC) / SUM(f.TOFF)) AS pilot_report_rate_cycle,  -- Calculate Pilot Report Rate per Cycle (PRRc)
+    (100 * SUM(m.PLBC) / COUNT(CASE WHEN NOT f.CN THEN f)) AS pilot_report_rate_cycle,  -- Calculate Pilot Report Rate per Cycle (PRRc)
     (1000 * SUM(m.MLBC) / SUM(f.FH)) AS maintenance_report_rate_hour,  -- Calculate Maintenance Report Rate per Hour (MRRh)
-    (100 * SUM(m.MLBC) / SUM(f.TOFF)) AS maintenance_report_rate_cycle  -- Calculate Maintenance Report Rate per Cycle (MRRc)
+    (100 * SUM(m.MLBC) / COUNT(CASE WHEN NOT f.CN THEN f)) AS maintenance_report_rate_cycle  -- Calculate Maintenance Report Rate per Cycle (MRRc)
 FROM 
     Maintenance_Fact m,                -- From the Maintenance_Fact table
     Aircraft_Dim a,                    -- From the Aircraft_Dim table

@@ -9,7 +9,7 @@ SELECT
     t.Month,                           -- Select the month
     t.Day,                             -- Select the day
     SUM(f.FH) AS total_flight_hours,   -- Sum up the flight hours (FH)
-    SUM(f.TOFF) AS total_takeoffs      -- Sum up the number of takeoffs (TO)
+    COUNT(CASE WHEN f.CN = 1 THEN f) AS total_takeoffs      -- Sum up the number of takeoffs (TO)
 FROM 
     Flight_Fact f,                     -- From the Flight_FACT table
     Aircraft_Dim a,                    -- From the Aircraft_Dim table

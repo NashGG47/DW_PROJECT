@@ -7,7 +7,7 @@ SELECT
     a.AircraftModel,                   -- Select the aircraft model
     r.Airport,                         -- Select the airport of the reporting person
     (1000 * SUM(m.MLBC) / SUM(f.FH)) AS maintenance_report_rate_hour,  -- Calculate Maintenance Report Rate per Hour (MRRh)
-    (100 * SUM(m.MLBC) / SUM(f.TOFF)) AS maintenance_report_rate_cycle   -- Calculate Maintenance Report Rate per Cycle (MRRc)
+    (100 * SUM(m.MLBC) / SUM(CASE WHEN f.CN = 1 THEN 1 ELSE 0 END)) AS maintenance_report_rate_cycle   -- Calculate Maintenance Report Rate per Cycle (MRRc)
 FROM 
     Maintenance_Fact m,                -- From the Maintenance_Fact table
     Aircraft_Dim a,                    -- From the Aircraft_Dim table
